@@ -1,0 +1,16 @@
+PODS:
+  - VaultSDK (0.1.0)
+
+DEPENDENCIES:
+  - VaultSDK (from `../`)
+
+EXTERNAL SOURCES:
+  VaultSDK:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  VaultSDK: edc6b2441862187b7864c25e0eb1ffbee5a0653e
+
+PODFILE CHECKSUM: bba992eaa629725db6eda7a572b4ce16d38c5469
+
+COCOAPODS: 1.5.3

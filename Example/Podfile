@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'VaultSDK_Example' do
+  pod 'VaultSDK', :path => '../'
+
+  target 'VaultSDK_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end

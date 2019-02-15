@@ -1,0 +1,6 @@
+framework module Pods_VaultSDK_Tests {
+  umbrella header "Pods-VaultSDK_Tests-umbrella.h"
+
+  export *
+  module * { export * }
+}
