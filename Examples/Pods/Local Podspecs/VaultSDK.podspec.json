@@ -22,6 +22,12 @@
   "dependencies": {
     "AppAuth": [
       "1.0.0.beta1"
+    ],
+    "SwiftyJSON": [
+      "~> 4.2.0"
+    ],
+    "CryptoSwift": [
+      "~> 0.14.0"
     ]
   }
 }

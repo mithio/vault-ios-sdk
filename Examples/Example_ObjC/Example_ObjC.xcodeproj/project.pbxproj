@@ -288,6 +288,8 @@
 			inputPaths = (
 				"${SRCROOT}/../Pods/Target Support Files/Pods-Example_ObjC/Pods-Example_ObjC-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/AppAuth/AppAuth.framework",
+				"${BUILT_PRODUCTS_DIR}/CryptoSwift/CryptoSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 				"${BUILT_PRODUCTS_DIR}/VaultSDK/VaultSDK.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -295,6 +297,8 @@
 			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AppAuth.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CryptoSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/VaultSDK.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
