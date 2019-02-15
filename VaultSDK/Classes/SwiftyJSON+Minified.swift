@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftyJSON
+import CryptoSwift
 
 extension JSON {
     
@@ -24,6 +25,12 @@ extension JSON {
         } else {
             return stringValue
         }
+    }
+    
+    func signature(with key: String) throws -> String {
+        return try HMAC(key: key.hexBytes, variant: .sha512)
+            .authenticate(minified.bytes)
+            .toHexString()
     }
     
 }
