@@ -11,6 +11,6 @@
 #endif
 
 
-FOUNDATION_EXPORT double Pods_VaultSDK_ExampleVersionNumber;
-FOUNDATION_EXPORT const unsigned char Pods_VaultSDK_ExampleVersionString[];
+FOUNDATION_EXPORT double Pods_Example_SwiftVersionNumber;
+FOUNDATION_EXPORT const unsigned char Pods_Example_SwiftVersionString[];
 

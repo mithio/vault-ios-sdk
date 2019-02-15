@@ -1,11 +1,15 @@
 use_frameworks!
 
-target 'VaultSDK_Example' do
+workspace 'VaultSDK'
+
+target 'Example_Swift' do
+  
+  project 'Example_Swift/Example_Swift'
+
   pod 'VaultSDK', :path => '../'
 
-  target 'VaultSDK_Tests' do
-    inherit! :search_paths
-
-    
+  target 'Example_SwiftTests' do
+    inherit! :search_paths  
   end
+
 end

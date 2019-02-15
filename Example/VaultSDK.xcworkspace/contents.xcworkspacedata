@@ -15,7 +15,7 @@
       </FileRef>
    </Group>
    <FileRef
-      location = "group:VaultSDK.xcodeproj">
+      location = "group:Example_Swift/Example_Swift.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:Pods/Pods.xcodeproj">
