@@ -13,3 +13,15 @@ target 'Example_Swift' do
   end
 
 end
+
+target 'Example_ObjC' do
+  
+  project 'Example_ObjC/Example_ObjC'
+
+  pod 'VaultSDK', :path => '../'
+
+  target 'Example_ObjCTests' do
+    inherit! :search_paths
+  end
+
+end
