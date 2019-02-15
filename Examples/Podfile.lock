@@ -1,15 +1,22 @@
 PODS:
-  - VaultSDK (0.1.0)
+  - AppAuth (1.0.0.beta1)
+  - VaultSDK (0.1.0):
+    - AppAuth (= 1.0.0.beta1)
 
 DEPENDENCIES:
   - VaultSDK (from `../`)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - AppAuth
 
 EXTERNAL SOURCES:
   VaultSDK:
     :path: "../"
 
 SPEC CHECKSUMS:
-  VaultSDK: edc6b2441862187b7864c25e0eb1ffbee5a0653e
+  AppAuth: ed552b73ee870e0de69ad82ad50d6983443bb1e3
+  VaultSDK: 1cd7e96036655e143ce1f165a9c703027de84148
 
 PODFILE CHECKSUM: 41081cfd7168843e691a882c456a0015b12fe4df
 
