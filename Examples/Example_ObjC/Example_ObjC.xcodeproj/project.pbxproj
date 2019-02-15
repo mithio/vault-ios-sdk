@@ -475,7 +475,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "tech.vault.Example-ObjC";
+				PRODUCT_BUNDLE_IDENTIFIER = "tech.vaultsdk.Example-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -493,7 +493,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "tech.vault.Example-ObjC";
+				PRODUCT_BUNDLE_IDENTIFIER = "tech.vaultsdk.Example-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -512,7 +512,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "tech.vault.Example-ObjCTests";
+				PRODUCT_BUNDLE_IDENTIFIER = "tech.vaultsdk.Example-ObjCTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Example_ObjC.app/Example_ObjC";
@@ -532,7 +532,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "tech.vault.Example-ObjCTests";
+				PRODUCT_BUNDLE_IDENTIFIER = "tech.vaultsdk.Example-ObjCTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Example_ObjC.app/Example_ObjC";
