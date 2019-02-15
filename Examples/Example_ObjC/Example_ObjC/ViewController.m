@@ -11,14 +11,21 @@
 
 @interface ViewController ()
 
+@property(nonatomic, strong) VaultSDK *sdk;
+
 @end
 
 @implementation ViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
-    VaultSDK *sdk = [[VaultSDK alloc] init];
+    self.sdk = [[VaultSDK alloc] init];
+    [self.sdk loginFrom:self callback:^(NSString *accessToken, NSError * error) {
+        NSLog(@"%@", accessToken);
+        [self.sdk unbindWithAccessToken:accessToken callback:^(BOOL success) {
+            NSLog(@"%@", success ? @"YES" : @"NO");
+        }];
+    }];
 }
 
 

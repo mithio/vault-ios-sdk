@@ -10,11 +10,22 @@ import UIKit
 import VaultSDK
 
 class ViewController: UIViewController {
+    
+    let sdk = VaultSDK()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        let sdk = VaultSDK()
+        sdk.login(from: self) { (token, error) in
+            guard let token = token else {
+                NSLog("🎥🙏🙏🙏 \(#line)")
+                return
+            }
+            
+            NSLog("🎥🙏🙏🙏 \(token)")
+            self.sdk.unbind(accessToken: token) { (success) in
+                NSLog("🎥🙏🙏🙏 \(success)")
+            }
+        }
     }
 
 
