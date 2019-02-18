@@ -31,6 +31,19 @@ class ViewController: UIViewController {
                 
                 NSLog("\(balances)")
             }
+            
+            VaultSDK.shared.getUserMiningAction { (miningActivities, error) in
+                guard let miningActivities = miningActivities else {
+                    NSLog("\(error)")
+                    return
+                }
+                
+                NSLog("\(miningActivities)")
+            }
+            
+            VaultSDK.shared.postUserMiningAction(reward: 123.789, uuid: UUID().uuidString) { (success, error) in
+                NSLog("\(success)")
+            }
         } else {
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1) {
                 VaultSDK.shared.login(from: self) { (token, error) in

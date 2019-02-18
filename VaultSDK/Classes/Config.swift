@@ -13,9 +13,12 @@ struct Config: Decodable {
     
     let clientSecret: String
     
+    let miningKey: String
+    
     enum CodingKeys: String, CodingKey {
         case clientId = "ClientId"
         case clientSecret = "ClientSecret"
+        case miningKey = "MiningKey"
     }
     
 }

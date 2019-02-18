@@ -6,6 +6,8 @@
     <string>ba6cabfb4de8d9f4f388124b1afe82b1</string>
     <key>ClientSecret</key>
     <string>aefd2b59d780eb29bc95b6cf8f3503233ad702141b20f53c8a645afbb8c6616048c5e9cc741e0ebee1a2469c68364e57e29dbeeabadc0b67958b9c3da7eabab9</string>
+    <key>MiningKey</key>
+    <string>demo</string>
     <key>CFBundleURLTypes</key>
     <array>
         <dict>

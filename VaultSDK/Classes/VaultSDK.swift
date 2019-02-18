@@ -37,6 +37,8 @@ private let userInformationEndpoint = tokenEndpoint.appendingPathComponent("user
 
 private let clientInformationEndpoint = tokenEndpoint.appendingPathComponent("balance")
 
+private let miningEndpoint = baseURL.appendingPathComponent("mining")
+
 public class VaultSDK: NSObject {
     
     @objc public static let shared = VaultSDK()
@@ -45,13 +47,19 @@ public class VaultSDK: NSObject {
     
     private let clientSecret: String
     
+    private let miningKey: String
+    
     private let redirectURL: URL
     
-    private let decoder: JSONDecoder = {
-        let decoder = JSONDecoder()
+    private let dateFormatter: DateFormatter = {
         let df = DateFormatter()
         df.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
-        decoder.dateDecodingStrategy = .formatted(df)
+        return df
+    }()
+    
+    private lazy var decoder: JSONDecoder = {
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .formatted(dateFormatter)
         return decoder
     }()
     
@@ -72,6 +80,7 @@ public class VaultSDK: NSObject {
         
         self.clientId = config.clientId
         self.clientSecret = config.clientSecret
+        self.miningKey = config.miningKey
         self.redirectURL = URL(string: "vault-\(config.clientId)://oauth")!
         super.init()
     }
@@ -171,6 +180,76 @@ public class VaultSDK: NSObject {
                 }
                 
                 callback(balances, nil)
+            })
+            .resume()
+    }
+    
+    @objc public func getUserMiningAction(callback: @escaping ([MiningActivity]?, Error?) -> Void) {
+        guard let accessToken = accessToken else {
+            callback(nil, NotLoggedInError())
+            return
+        }
+        
+        var payload = generateDefaultPayload()
+        payload["mining_key"] = miningKey
+        let paylodJSON = JSON(payload)
+        let signature = try! paylodJSON.signature(with: clientSecret)
+        var component = URLComponents(url: miningEndpoint, resolvingAgainstBaseURL: true)!
+        component.queryItems = paylodJSON.dictionaryValue
+            .map { URLQueryItem(name: $0, value: $1.stringValue) }
+        var request = URLRequest(url: component.url!)
+        request.httpMethod = "GET"
+        request.setValue(signature, forHTTPHeaderField: "X-Vault-Signature")
+        request.setValue(accessToken, forHTTPHeaderField: "Authorization")
+        URLSession.shared
+            .dataTask(with: request, completionHandler: { (data, response, error) in
+                guard let data = data, let miningActivities = try? self.decoder.decode([MiningActivity].self, from: data) else {
+                    let error = NoTokenError()
+                    callback(nil, error)
+                    return
+                }
+                
+                callback(miningActivities, nil)
+            })
+            .resume()
+    }
+    
+    @objc public func postUserMiningAction(reward: Double, uuid: String, callback: @escaping (Bool, Error?) -> Void) {
+        guard let accessToken = accessToken else {
+            callback(false, NotLoggedInError())
+            return
+        }
+        
+        var payload = generateDefaultPayload()
+        payload["mining_key"] = miningKey
+        payload["uuid"] = uuid
+        payload["reward"] = reward
+        let timestamp = payload["timestamp"] as! Int
+        let date = Date(timeIntervalSince1970: Double(timestamp))
+        let happendAt = dateFormatter.string(from: date)
+        payload["happened_at"] = happendAt
+        let payloadJSON = JSON(payload)
+        let signature = try! payloadJSON.signature(with: clientSecret)
+        var request = URLRequest(url: miningEndpoint)
+        request.httpMethod = "POST"
+        request.httpBody = try? JSONSerialization.data(withJSONObject: payload, options: [])
+        request.setValue("Application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue(signature, forHTTPHeaderField: "X-Vault-Signature")
+        request.setValue(accessToken, forHTTPHeaderField: "Authorization")
+        URLSession.shared
+            .dataTask(with: request, completionHandler: { (data, response, error) in
+                if let error = error {
+                    callback(false, error)
+                    return
+                }
+                
+                guard let httpURLResponse = response as? HTTPURLResponse, httpURLResponse.statusCode == 201 else {
+                    let error = NoTokenError()
+                    callback(false, error)
+                    return
+                }
+                
+                callback(true, nil)
             })
             .resume()
     }
