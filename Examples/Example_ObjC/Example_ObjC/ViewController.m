@@ -26,6 +26,15 @@
             
             NSLog(@"%@", userInformation);
         }];
+        
+        [[VaultSDK shared] getClientInformationWithCallback:^(NSArray<Balance *> *balances, NSError *error) {
+            if (error != nil) {
+                NSLog(@"%@", error);
+                return;
+            }
+            
+            NSLog(@"%@", balances);
+        }];
     } else {
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [[VaultSDK shared] loginFrom:self callback:^(NSString *accessToken, NSError * error) {

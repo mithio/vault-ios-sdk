@@ -35,6 +35,8 @@ private let tokenEndpoint = baseURL.appendingPathComponent("oauth")
 
 private let userInformationEndpoint = tokenEndpoint.appendingPathComponent("user-info")
 
+private let clientInformationEndpoint = tokenEndpoint.appendingPathComponent("balance")
+
 public class VaultSDK: NSObject {
     
     @objc public static let shared = VaultSDK()
@@ -44,6 +46,14 @@ public class VaultSDK: NSObject {
     private let clientSecret: String
     
     private let redirectURL: URL
+    
+    private let decoder: JSONDecoder = {
+        let decoder = JSONDecoder()
+        let df = DateFormatter()
+        df.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+        decoder.dateDecodingStrategy = .formatted(df)
+        return decoder
+    }()
     
     private var session: OIDExternalUserAgentSession!
     
@@ -108,7 +118,7 @@ public class VaultSDK: NSObject {
     }
     
     @objc public func getUserInformation(callback: @escaping (UserInfo?, Error?) -> Void) {
-        guard let accessToken = UserDefaults.standard.string(forKey: tokenKey) else {
+        guard let accessToken = accessToken else {
             callback(nil, NotLoggedInError())
             return
         }
@@ -125,13 +135,42 @@ public class VaultSDK: NSObject {
         request.setValue(accessToken, forHTTPHeaderField: "Authorization")
         URLSession.shared
             .dataTask(with: request, completionHandler: { (data, response, error) in
-                guard let data = data, let userInformation = try? JSONDecoder().decode(UserInfo.self, from: data) else {
+                guard let data = data, let userInformation = try? self.decoder.decode(UserInfo.self, from: data) else {
                     let error = NoTokenError()
                     callback(nil, error)
                     return
                 }
                 
                 callback(userInformation, nil)
+            })
+            .resume()
+    }
+    
+    @objc public func getClientInformation(callback: @escaping ([Balance]?, Error?) -> Void) {
+        guard let accessToken = accessToken else {
+            callback(nil, NotLoggedInError())
+            return
+        }
+        
+        let paylodJSON = JSON(generateDefaultPayload())
+        var component = URLComponents(url: clientInformationEndpoint, resolvingAgainstBaseURL: true)!
+        component.queryItems = paylodJSON.dictionaryValue
+            .map { URLQueryItem(name: $0, value: $1.stringValue) }
+        var request = URLRequest(url: component.url!)
+        let signature = try! paylodJSON.signature(with: clientSecret)
+        request.httpMethod = "GET"
+        request.setValue("Application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue(signature, forHTTPHeaderField: "X-Vault-Signature")
+        request.setValue(accessToken, forHTTPHeaderField: "Authorization")
+        URLSession.shared
+            .dataTask(with: request, completionHandler: { (data, response, error) in
+                guard let data = data, let balances = try? self.decoder.decode([Balance].self, from: data) else {
+                    let error = NoTokenError()
+                    callback(nil, error)
+                    return
+                }
+                
+                callback(balances, nil)
             })
             .resume()
     }
@@ -146,7 +185,11 @@ public class VaultSDK: NSObject {
     }
     
     @objc public var isLoggedIn: Bool {
-        return !(UserDefaults.standard.string(forKey: tokenKey)?.isEmpty ?? true)
+        return !(accessToken?.isEmpty ?? true)
+    }
+    
+    @objc public var accessToken: String? {
+        return UserDefaults.standard.string(forKey: tokenKey)
     }
     
     private func getUserGrantCode(viewController: UIViewController, callback: @escaping (AuthorizationResult) -> Void) {
@@ -208,7 +251,7 @@ public class VaultSDK: NSObject {
                     return
                 }
                 
-                guard let data = data, let tokenWrapper = try? JSONDecoder().decode(TokenWrapper.self, from: data) else {
+                guard let data = data, let tokenWrapper = try? self.decoder.decode(TokenWrapper.self, from: data) else {
                     let error = NoTokenError()
                     callback(.error(error))
                     return

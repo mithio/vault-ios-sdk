@@ -22,6 +22,15 @@ class ViewController: UIViewController {
                 
                 NSLog("\(userInfo)")
             }
+            
+            VaultSDK.shared.getClientInformation { (balances, error) in
+                guard let balances = balances else {
+                    NSLog("\(error)")
+                    return
+                }
+                
+                NSLog("\(balances)")
+            }
         } else {
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1) {
                 VaultSDK.shared.login(from: self) { (token, error) in
