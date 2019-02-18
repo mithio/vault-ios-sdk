@@ -16,6 +16,8 @@ enum VaultSDKError: Error, LocalizedError {
     
     case failedToDecode(type: Decodable.Type, data: Data, error: Error)
     
+    case serverErrorCode(String)
+    
     case notLoggedIn
     
     var errorDescription: String? {
@@ -26,6 +28,8 @@ enum VaultSDKError: Error, LocalizedError {
             return "No grant code, expecting grant_code in redirect URL. Authroization response: \(response)"
         case .failedToDecode(let type, let data, let error):
             return "Failed to decode, expecting \(type) object, but got \(String(data: data, encoding: .utf8) ?? "empty response body"). JSONDecoder error: \(error) "
+        case .serverErrorCode(let errorCode):
+            return "Server error code, \(errorCode)"
         case .notLoggedIn:
             return "No access token. Log in before calling any other api."
         }

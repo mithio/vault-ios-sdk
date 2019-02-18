@@ -122,6 +122,11 @@ public class VaultSDK: NSObject {
                     return
                 }
                 
+                if let codeWrapper = try? self.decoder.decode(CodeWrapper.self, from: data!) {
+                    callback(false, VaultSDKError.serverErrorCode(codeWrapper.code))
+                    return
+                }
+                
                 UserDefaults.standard.removeObject(forKey: tokenKey)
                 callback(true, nil)
             })
@@ -148,6 +153,11 @@ public class VaultSDK: NSObject {
             .dataTask(with: request, completionHandler: { (data, response, error) in
                 if let error = error {
                     callback(nil, error)
+                    return
+                }
+                
+                if let codeWrapper = try? self.decoder.decode(CodeWrapper.self, from: data!) {
+                    callback(nil, VaultSDKError.serverErrorCode(codeWrapper.code))
                     return
                 }
                 
@@ -184,6 +194,11 @@ public class VaultSDK: NSObject {
                     return
                 }
                 
+                if let codeWrapper = try? self.decoder.decode(CodeWrapper.self, from: data!) {
+                    callback(nil, VaultSDKError.serverErrorCode(codeWrapper.code))
+                    return
+                }
+                
                 do {
                     let balances = try self.decoder.decode([Balance].self, from: data!)
                     callback(balances, nil)
@@ -215,6 +230,11 @@ public class VaultSDK: NSObject {
             .dataTask(with: request, completionHandler: { (data, response, error) in
                 if let error = error {
                     callback(nil, error)
+                    return
+                }
+                
+                if let codeWrapper = try? self.decoder.decode(CodeWrapper.self, from: data!) {
+                    callback(nil, VaultSDKError.serverErrorCode(codeWrapper.code))
                     return
                 }
                 
@@ -257,14 +277,12 @@ public class VaultSDK: NSObject {
                     return
                 }
                 
-                let response = response as! HTTPURLResponse
+                if let codeWrapper = try? self.decoder.decode(CodeWrapper.self, from: data!) {
+                    callback(false, VaultSDKError.serverErrorCode(codeWrapper.code))
+                    return
+                }
                 
-                NSLog("🙏🙏🙏 \(String(data: data!, encoding: .utf8))")
-//                if response.statusCode == 201 {
-//                    callback(nil)
-//                } else {
-//                    callback(nil)
-//                }
+                callback(true, nil)
             })
             .resume()
     }
@@ -342,6 +360,11 @@ public class VaultSDK: NSObject {
             .dataTask(with: request, completionHandler: { (data, response, error) in
                 if let error = error {
                     callback(.error(error))
+                    return
+                }
+                
+                if let codeWrapper = try? self.decoder.decode(CodeWrapper.self, from: data!) {
+                    callback(.error(VaultSDKError.serverErrorCode(codeWrapper.code)))
                     return
                 }
                 
