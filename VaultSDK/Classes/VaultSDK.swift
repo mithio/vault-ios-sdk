@@ -97,6 +97,15 @@ public class VaultSDK: NSObject {
             .resume()
     }
     
+    @objc public func open(url: URL) -> Bool {
+        if session.resumeExternalUserAgentFlow(with: url) {
+            session = nil
+            return true
+        }
+        
+        return false
+    }
+    
     private func getUserGrantCode(viewController: UIViewController, callback: @escaping (AuthorizationResult) -> Void) {
         let configutation = OIDServiceConfiguration(authorizationEndpoint: authorizationEndpoint, tokenEndpoint: tokenEndpoint)
         let request = OIDAuthorizationRequest(

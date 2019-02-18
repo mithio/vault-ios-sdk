@@ -17,12 +17,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [[VaultSDK shared] loginFrom:self callback:^(NSString *accessToken, NSError * error) {
-        NSLog(@"%@", accessToken);
-        [[VaultSDK shared] unbindWithAccessToken:accessToken callback:^(BOOL success) {
-            NSLog(@"%@", success ? @"YES" : @"NO");
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [[VaultSDK shared] loginFrom:self callback:^(NSString *accessToken, NSError * error) {
+            NSLog(@"%@", accessToken);
+            [[VaultSDK shared] unbindWithAccessToken:accessToken callback:^(BOOL success) {
+                NSLog(@"%@", success ? @"YES" : @"NO");
+            }];
         }];
-    }];
+    });
 }
 
 
