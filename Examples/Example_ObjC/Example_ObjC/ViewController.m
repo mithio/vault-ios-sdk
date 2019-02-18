@@ -17,14 +17,19 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [[VaultSDK shared] loginFrom:self callback:^(NSString *accessToken, NSError * error) {
-            NSLog(@"%@", accessToken);
-            [[VaultSDK shared] unbindWithAccessToken:accessToken callback:^(BOOL success) {
-                NSLog(@"%@", success ? @"YES" : @"NO");
+    if ([VaultSDK shared].isLoggedIn) {
+    } else {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [[VaultSDK shared] loginFrom:self callback:^(NSString *accessToken, NSError * error) {
+                if (error != nil) {
+                    NSLog(@"%@", error);
+                    return;
+                }
+                
+                NSLog(@"%@", accessToken);
             }];
-        }];
-    });
+        });
+    }
 }
 
 

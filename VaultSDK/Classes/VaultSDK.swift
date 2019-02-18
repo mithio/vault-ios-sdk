@@ -25,6 +25,8 @@ enum TokenExchangeResult {
     
 }
 
+private let tokenKey = "vault_access_token_key"
+
 public class VaultSDK: NSObject {
     
     @objc public static let shared = VaultSDK()
@@ -67,6 +69,7 @@ public class VaultSDK: NSObject {
                 self.getAccessToken(grantCode: grantCode, requestState: requestState, callback: { (result) in
                     switch result {
                     case .success(let accessToken):
+                        UserDefaults.standard.set(accessToken, forKey: tokenKey)
                         callback(accessToken, nil)
                     case .error(let error):
                         callback(nil, error)
@@ -92,6 +95,9 @@ public class VaultSDK: NSObject {
         URLSession.shared
             .dataTask(with: request, completionHandler: { (_, _, error) in
                 let success = error == nil
+                if success {
+                    UserDefaults.standard.removeObject(forKey: tokenKey)
+                }
                 callback(success)
             })
             .resume()
@@ -104,6 +110,10 @@ public class VaultSDK: NSObject {
         }
         
         return false
+    }
+    
+    @objc public var isLoggedIn: Bool {
+        return !(UserDefaults.standard.string(forKey: tokenKey)?.isEmpty ?? true)
     }
     
     private func getUserGrantCode(viewController: UIViewController, callback: @escaping (AuthorizationResult) -> Void) {
