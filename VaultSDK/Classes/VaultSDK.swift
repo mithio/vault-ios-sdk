@@ -104,7 +104,7 @@ public class VaultSDK: NSObject {
         })
     }
     
-    @objc public func unbind(accessToken: String, callback: @escaping (Bool) -> Void) {
+    @objc public func unbind(accessToken: String, callback: @escaping (Bool, Error?) -> Void) {
         let paylodJSON = JSON(generateDefaultPayload())
         var component = URLComponents(url: tokenEndpoint, resolvingAgainstBaseURL: true)!
         component.queryItems = paylodJSON.dictionaryValue
@@ -116,19 +116,21 @@ public class VaultSDK: NSObject {
         request.setValue(signature, forHTTPHeaderField: "X-Vault-Signature")
         request.setValue(accessToken, forHTTPHeaderField: "Authorization")
         URLSession.shared
-            .dataTask(with: request, completionHandler: { (_, _, error) in
-                let success = error == nil
-                if success {
-                    UserDefaults.standard.removeObject(forKey: tokenKey)
+            .dataTask(with: request, completionHandler: { (data, response, error) in
+                if let error  = error {
+                    callback(false, error)
+                    return
                 }
-                callback(success)
+                
+                UserDefaults.standard.removeObject(forKey: tokenKey)
+                callback(true, nil)
             })
             .resume()
     }
     
     @objc public func getUserInformation(callback: @escaping (UserInfo?, Error?) -> Void) {
         guard let accessToken = accessToken else {
-            callback(nil, NotLoggedInError())
+            callback(nil, VaultSDKError.notLoggedIn)
             return
         }
         
@@ -144,20 +146,24 @@ public class VaultSDK: NSObject {
         request.setValue(accessToken, forHTTPHeaderField: "Authorization")
         URLSession.shared
             .dataTask(with: request, completionHandler: { (data, response, error) in
-                guard let data = data, let userInformation = try? self.decoder.decode(UserInfo.self, from: data) else {
-                    let error = NoTokenError()
+                if let error = error {
                     callback(nil, error)
                     return
                 }
                 
-                callback(userInformation, nil)
+                do {
+                    let userInfo = try self.decoder.decode(UserInfo.self, from: data!)
+                    callback(userInfo, nil)
+                } catch {
+                    callback(nil, VaultSDKError.failedToDecode(type: UserInfo.self, data: data!, error: error))
+                }
             })
             .resume()
     }
     
     @objc public func getClientInformation(callback: @escaping ([Balance]?, Error?) -> Void) {
         guard let accessToken = accessToken else {
-            callback(nil, NotLoggedInError())
+            callback(nil, VaultSDKError.notLoggedIn)
             return
         }
         
@@ -173,20 +179,24 @@ public class VaultSDK: NSObject {
         request.setValue(accessToken, forHTTPHeaderField: "Authorization")
         URLSession.shared
             .dataTask(with: request, completionHandler: { (data, response, error) in
-                guard let data = data, let balances = try? self.decoder.decode([Balance].self, from: data) else {
-                    let error = NoTokenError()
+                if let error = error {
                     callback(nil, error)
                     return
                 }
                 
-                callback(balances, nil)
+                do {
+                    let balances = try self.decoder.decode([Balance].self, from: data!)
+                    callback(balances, nil)
+                } catch {
+                    callback(nil, VaultSDKError.failedToDecode(type: [Balance].self, data: data!, error: error))
+                }
             })
             .resume()
     }
     
     @objc public func getUserMiningAction(callback: @escaping ([MiningActivity]?, Error?) -> Void) {
         guard let accessToken = accessToken else {
-            callback(nil, NotLoggedInError())
+            callback(nil, VaultSDKError.notLoggedIn)
             return
         }
         
@@ -203,20 +213,24 @@ public class VaultSDK: NSObject {
         request.setValue(accessToken, forHTTPHeaderField: "Authorization")
         URLSession.shared
             .dataTask(with: request, completionHandler: { (data, response, error) in
-                guard let data = data, let miningActivities = try? self.decoder.decode([MiningActivity].self, from: data) else {
-                    let error = NoTokenError()
+                if let error = error {
                     callback(nil, error)
                     return
                 }
                 
-                callback(miningActivities, nil)
+                do {
+                    let miningActivities = try self.decoder.decode([MiningActivity].self, from: data!)
+                    callback(miningActivities, nil)
+                } catch {
+                    callback(nil, VaultSDKError.failedToDecode(type: [MiningActivity].self, data: data!, error: error))
+                }
             })
             .resume()
     }
     
     @objc public func postUserMiningAction(reward: Double, uuid: String, callback: @escaping (Bool, Error?) -> Void) {
         guard let accessToken = accessToken else {
-            callback(false, NotLoggedInError())
+            callback(false, VaultSDKError.notLoggedIn)
             return
         }
         
@@ -239,17 +253,18 @@ public class VaultSDK: NSObject {
         URLSession.shared
             .dataTask(with: request, completionHandler: { (data, response, error) in
                 if let error = error {
-                    callback(false, error)
+                    callback(false ,error)
                     return
                 }
                 
-                guard let httpURLResponse = response as? HTTPURLResponse, httpURLResponse.statusCode == 201 else {
-                    let error = NoTokenError()
-                    callback(false, error)
-                    return
-                }
+                let response = response as! HTTPURLResponse
                 
-                callback(true, nil)
+                NSLog("🙏🙏🙏 \(String(data: data!, encoding: .utf8))")
+//                if response.statusCode == 201 {
+//                    callback(nil)
+//                } else {
+//                    callback(nil)
+//                }
             })
             .resume()
     }
@@ -293,17 +308,17 @@ public class VaultSDK: NSObject {
             guard let requestState = state.lastAuthorizationResponse.request.state,
                 let responseState = state.lastAuthorizationResponse.state,
                 requestState == responseState else {
-                    let error = StateMismatchError(
+                    let error = VaultSDKError.stateMismatch(
                         requestState: state.lastAuthorizationResponse.request.state,
-                        responseState: state.lastAuthorizationResponse.state, response:
-                        state.lastAuthorizationResponse
+                        responseState: state.lastAuthorizationResponse.state,
+                        response: state.lastAuthorizationResponse
                     )
                     callback(.error(error))
                     return
             }
             
             guard let grantCode = state.lastAuthorizationResponse.additionalParameters?["grant_code"] as? String else {
-                let error = NoGrantCodeError(response: state.lastAuthorizationResponse)
+                let error = VaultSDKError.noGrantCode(response: state.lastAuthorizationResponse)
                 callback(.error(error))
                 return
             }
@@ -330,13 +345,12 @@ public class VaultSDK: NSObject {
                     return
                 }
                 
-                guard let data = data, let tokenWrapper = try? self.decoder.decode(TokenWrapper.self, from: data) else {
-                    let error = NoTokenError()
-                    callback(.error(error))
-                    return
+                do {
+                    let tokenWrapper = try self.decoder.decode(TokenWrapper.self, from: data!)
+                    callback(.success(accessToken: tokenWrapper.token))
+                } catch {
+                    callback(.error(VaultSDKError.failedToDecode(type: TokenWrapper.self, data: data!, error: error)))
                 }
-                
-                callback(.success(accessToken: tokenWrapper.token))
             })
             .resume()
     }

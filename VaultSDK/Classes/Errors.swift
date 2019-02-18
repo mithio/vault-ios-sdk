@@ -8,42 +8,27 @@
 import Foundation
 import AppAuth
 
-struct StateMismatchError: Error, LocalizedError {
+enum VaultSDKError: Error, LocalizedError {
     
-    let requestState: String?
+    case stateMismatch(requestState: String?, responseState: String?, response: OIDAuthorizationResponse)
     
-    let responseState: String?
+    case noGrantCode(response: OIDAuthorizationResponse)
     
-    let response: OIDAuthorizationResponse
+    case failedToDecode(type: Decodable.Type, data: Data, error: Error)
     
-    var errorDescription: String? {
-        return "State mismatch, expecting \(String(describing: requestState)) but got \(String(describing: responseState)) in authorization esponse \(response)"
-    }
-    
-}
-
-struct NoGrantCodeError: Error, LocalizedError {
-    
-    let response: OIDAuthorizationResponse
+    case notLoggedIn
     
     var errorDescription: String? {
-        return "No grant code, expecting grant_code in redirect URL. Authroization response: \(response)"
-    }
-    
-}
-
-struct NoTokenError: Error, LocalizedError {
-    
-    var errorDescription: String? {
-        return "Expecting \"token\" in json response"
-    }
-    
-}
-
-struct NotLoggedInError: Error, LocalizedError {
-    
-    var errorDescription: String? {
-        return "Please log in first"
+        switch (self) {
+        case .stateMismatch(let requestState, let responseState, let response):
+            return "State mismatch, expecting \(String(describing: requestState)) but got \(String(describing: responseState)) in authorization esponse \(response)"
+        case .noGrantCode(let response):
+            return "No grant code, expecting grant_code in redirect URL. Authroization response: \(response)"
+        case .failedToDecode(let type, let data, let error):
+            return "Failed to decode, expecting \(type) object, but got \(String(data: data, encoding: .utf8) ?? "empty response body"). JSONDecoder error: \(error) "
+        case .notLoggedIn:
+            return "No access token. Log in before calling any other api."
+        }
     }
     
 }
