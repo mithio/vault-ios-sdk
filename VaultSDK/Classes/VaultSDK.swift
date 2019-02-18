@@ -27,6 +27,14 @@ enum TokenExchangeResult {
 
 private let tokenKey = "vault_access_token_key"
 
+private let baseURL = URL(string: "https://2019-hackathon.api.mithvault.io")!
+
+private let authorizationEndpoint = URL(string: "https://mining.mithvault.io/zh-TW/oauth/authorize")!
+
+private let tokenEndpoint = baseURL.appendingPathComponent("oauth")
+
+private let userInformationEndpoint = tokenEndpoint.appendingPathComponent("user-info")
+
 public class VaultSDK: NSObject {
     
     @objc public static let shared = VaultSDK()
@@ -36,10 +44,6 @@ public class VaultSDK: NSObject {
     private let clientSecret: String
     
     private let redirectURL: URL
-    
-    private let authorizationEndpoint = URL(string: "https://mining.mithvault.io/zh-TW/oauth/authorize")!
-    
-    private let tokenEndpoint = URL(string: "https://2019-hackathon.api.mithvault.io/oauth/token")!
     
     private var session: OIDExternalUserAgentSession!
     
@@ -99,6 +103,35 @@ public class VaultSDK: NSObject {
                     UserDefaults.standard.removeObject(forKey: tokenKey)
                 }
                 callback(success)
+            })
+            .resume()
+    }
+    
+    @objc public func getUserInformation(callback: @escaping (UserInfo?, Error?) -> Void) {
+        guard let accessToken = UserDefaults.standard.string(forKey: tokenKey) else {
+            callback(nil, NotLoggedInError())
+            return
+        }
+        
+        let paylodJSON = JSON(generateDefaultPayload())
+        var component = URLComponents(url: userInformationEndpoint, resolvingAgainstBaseURL: true)!
+        component.queryItems = paylodJSON.dictionaryValue
+            .map { URLQueryItem(name: $0, value: $1.stringValue) }
+        var request = URLRequest(url: component.url!)
+        let signature = try! paylodJSON.signature(with: clientSecret)
+        request.httpMethod = "GET"
+        request.setValue("Application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue(signature, forHTTPHeaderField: "X-Vault-Signature")
+        request.setValue(accessToken, forHTTPHeaderField: "Authorization")
+        URLSession.shared
+            .dataTask(with: request, completionHandler: { (data, response, error) in
+                guard let data = data, let userInformation = try? JSONDecoder().decode(UserInfo.self, from: data) else {
+                    let error = NoTokenError()
+                    callback(nil, error)
+                    return
+                }
+                
+                callback(userInformation, nil)
             })
             .resume()
     }

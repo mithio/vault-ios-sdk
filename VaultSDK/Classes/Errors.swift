@@ -39,3 +39,11 @@ struct NoTokenError: Error, LocalizedError {
     }
     
 }
+
+struct NotLoggedInError: Error, LocalizedError {
+    
+    var errorDescription: String? {
+        return "Please log in first"
+    }
+    
+}

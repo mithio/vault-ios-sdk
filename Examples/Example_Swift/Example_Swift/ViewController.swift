@@ -14,6 +14,14 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         if VaultSDK.shared.isLoggedIn {
+            VaultSDK.shared.getUserInformation { (userInfo, error) in
+                guard let userInfo = userInfo else {
+                    NSLog("\(error)")
+                    return
+                }
+                
+                NSLog("\(userInfo)")
+            }
         } else {
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1) {
                 VaultSDK.shared.login(from: self) { (token, error) in
