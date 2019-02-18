@@ -27,6 +27,8 @@ enum TokenExchangeResult {
 
 public class VaultSDK: NSObject {
     
+    @objc public static let shared = VaultSDK()
+    
     private let clientId: String
     
     private let clientSecret: String
@@ -37,9 +39,9 @@ public class VaultSDK: NSObject {
     
     private let tokenEndpoint = URL(string: "https://2019-hackathon.api.mithvault.io/oauth/token")!
     
-    private var session: OIDExternalUserAgentSession?
+    private var session: OIDExternalUserAgentSession!
     
-    public override init() {
+    override init() {
         guard let url = Bundle.main.url(forResource: "Info", withExtension: "plist") else {
             fatalError()
         }

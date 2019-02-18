@@ -11,18 +11,15 @@
 
 @interface ViewController ()
 
-@property(nonatomic, strong) VaultSDK *sdk;
-
 @end
 
 @implementation ViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.sdk = [[VaultSDK alloc] init];
-    [self.sdk loginFrom:self callback:^(NSString *accessToken, NSError * error) {
+    [[VaultSDK shared] loginFrom:self callback:^(NSString *accessToken, NSError * error) {
         NSLog(@"%@", accessToken);
-        [self.sdk unbindWithAccessToken:accessToken callback:^(BOOL success) {
+        [[VaultSDK shared] unbindWithAccessToken:accessToken callback:^(BOOL success) {
             NSLog(@"%@", success ? @"YES" : @"NO");
         }];
     }];

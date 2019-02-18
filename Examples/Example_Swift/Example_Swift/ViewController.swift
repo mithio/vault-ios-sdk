@@ -10,19 +10,17 @@ import UIKit
 import VaultSDK
 
 class ViewController: UIViewController {
-    
-    let sdk = VaultSDK()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        sdk.login(from: self) { (token, error) in
+        VaultSDK.shared.login(from: self) { (token, error) in
             guard let token = token else {
                 NSLog("🎥🙏🙏🙏 \(#line)")
                 return
             }
             
             NSLog("🎥🙏🙏🙏 \(token)")
-            self.sdk.unbind(accessToken: token) { (success) in
+            VaultSDK.shared.unbind(accessToken: token) { (success) in
                 NSLog("🎥🙏🙏🙏 \(success)")
             }
         }
