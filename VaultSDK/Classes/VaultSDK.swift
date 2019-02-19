@@ -66,23 +66,18 @@ public class VaultSDK: NSObject {
     private var session: OIDExternalUserAgentSession!
     
     override init() {
-        guard let url = Bundle.main.url(forResource: "Info", withExtension: "plist") else {
-            fatalError()
+        let url = Bundle.main.url(forResource: "Info", withExtension: "plist")!
+        let data = try! Data(contentsOf: url)
+        do {
+            let config = try PropertyListDecoder().decode(Config.self, from: data)
+            self.clientId = config.clientId
+            self.clientSecret = config.clientSecret
+            self.miningKey = config.miningKey
+            self.redirectURL = URL(string: "vault-\(config.clientId)://oauth")!
+            super.init()
+        } catch {
+            fatalError("Missing ClientId, ClientSecret, or MiningKey in Info.plist. Decoder error: \(error)")
         }
-        
-        guard let data = try? Data(contentsOf: url)  else {
-            fatalError()
-        }
-        
-        guard let config = try? PropertyListDecoder().decode(Config.self, from: data) else {
-            fatalError()
-        }
-        
-        self.clientId = config.clientId
-        self.clientSecret = config.clientSecret
-        self.miningKey = config.miningKey
-        self.redirectURL = URL(string: "vault-\(config.clientId)://oauth")!
-        super.init()
     }
     
     @objc public func login(from viewController: UIViewController, callback: @escaping (String?, Error?) -> Void) {
