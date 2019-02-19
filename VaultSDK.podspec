@@ -9,37 +9,15 @@
 Pod::Spec.new do |s|
   s.name             = 'VaultSDK'
   s.version          = '0.1.0'
-  s.summary          = 'A short description of VaultSDK.'
-
-# This description is used to generate tags and improve search results.
-#   * Think: What does it do? Why did you write it? What is the focus?
-#   * Try to keep it short, snappy and to the point.
-#   * Write the description between the DESC delimiters below.
-#   * Finally, don't worry about the indent, CocoaPods strips it!
-
-  s.description      = <<-DESC
-TODO: Add long description of the pod here.
-                       DESC
-
+  s.summary          = 'The SDK for 2019 Mithril Hackathon'
   s.homepage         = 'https://github.com/alexhuangtung/VaultSDK'
-  # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'alexhuangtung' => 'alexhuangtung@gmail.com' }
   s.source           = { :git => 'https://github.com/alexhuangtung/VaultSDK.git', :tag => s.version.to_s }
-  # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
-
   s.ios.deployment_target = '9.0'
-
   s.source_files = 'VaultSDK/Classes/**/*'
-  
-  # s.resource_bundles = {
-  #   'VaultSDK' => ['VaultSDK/Assets/*.png']
-  # }
-
-  # s.public_header_files = 'Pod/Classes/**/*.h'
-  # s.frameworks = 'UIKit', 'MapKit'
+  s.swift_version = '4.2'
   s.dependency 'AppAuth', '1.0.0.beta1'
   s.dependency 'SwiftyJSON', '~> 4.2.0'
   s.dependency 'CryptoSwift', '~> 0.14.0'
-
 end
