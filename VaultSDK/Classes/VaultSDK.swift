@@ -99,6 +99,15 @@ public class VaultSDK: NSObject {
         })
     }
     
+    @objc public func unbind(callback: @escaping (Bool, Error?) -> Void) {
+        guard let accessToken = accessToken else {
+            callback(false, VaultSDKError.notLoggedIn)
+            return
+        }
+        
+        unbind(accessToken: accessToken, callback: callback)
+    }
+    
     @objc public func unbind(accessToken: String, callback: @escaping (Bool, Error?) -> Void) {
         let paylodJSON = JSON(generateDefaultPayload())
         var component = URLComponents(url: tokenEndpoint, resolvingAgainstBaseURL: true)!
