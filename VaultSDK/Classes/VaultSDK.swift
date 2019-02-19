@@ -31,11 +31,11 @@ private let baseURL = URL(string: "https://2019-hackathon.api.mithvault.io")!
 
 private let authorizationEndpoint = URL(string: "https://mining.mithvault.io/zh-TW/oauth/authorize")!
 
-private let tokenEndpoint = baseURL.appendingPathComponent("oauth")
+private let tokenEndpoint = baseURL.appendingPathComponent("oauth/token")
 
-private let userInformationEndpoint = tokenEndpoint.appendingPathComponent("user-info")
+private let userInformationEndpoint = baseURL.appendingPathComponent("oauth/user-info")
 
-private let clientInformationEndpoint = tokenEndpoint.appendingPathComponent("balance")
+private let clientInformationEndpoint = baseURL.appendingPathComponent("oauth/balance")
 
 private let miningEndpoint = baseURL.appendingPathComponent("mining")
 
