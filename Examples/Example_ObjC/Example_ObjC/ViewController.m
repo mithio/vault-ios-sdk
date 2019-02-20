@@ -118,6 +118,7 @@
         }
         
         self.consoleTextView.text = [self.consoleTextView.text stringByAppendingString: [NSString stringWithFormat:@"Successfully unbind access token, %@.\n\n", accessToken]];
+        [self updateUI];
     }];
 }
 
