@@ -29,7 +29,7 @@ private let tokenKey = "vault_access_token_key"
 
 private let baseURL = URL(string: "https://2019-hackathon.api.mithvault.io")!
 
-private let authorizationEndpoint = URL(string: "https://mining.mithvault.io/zh-TW/oauth/authorize")!
+private let authorizationEndpoint = URL(string: "https://2019-hackathon.mithvault.io/oauth/authorize")!
 
 private let tokenEndpoint = baseURL.appendingPathComponent("oauth/token")
 
@@ -316,10 +316,7 @@ public class VaultSDK: NSObject {
             scopes: nil,
             redirectURL: redirectURL,
             responseType: "\(OIDResponseTypeCode) \(OIDResponseTypeIDToken)",
-            additionalParameters: [
-                "api": "https://2019-hackathon.api.mithvault.io",
-                "device": "ios"
-            ]
+            additionalParameters: ["device": "ios"]
         )
         session = OIDAuthState.authState(byPresenting: request, presenting: viewController) { (state, error) in
             guard let state = state else {
