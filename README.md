@@ -1,29 +1,41 @@
-# VaultSDK
+VAULT SDK for iOS
+========================
 
-[![CI Status](https://img.shields.io/travis/alexhuangtung/VaultSDK.svg?style=flat)](https://travis-ci.org/alexhuangtung/VaultSDK)
-[![Version](https://img.shields.io/cocoapods/v/VaultSDK.svg?style=flat)](https://cocoapods.org/pods/VaultSDK)
-[![License](https://img.shields.io/cocoapods/l/VaultSDK.svg?style=flat)](https://cocoapods.org/pods/VaultSDK)
-[![Platform](https://img.shields.io/cocoapods/p/VaultSDK.svg?style=flat)](https://cocoapods.org/pods/VaultSDK)
+This open-source library allows you to integrate VAULT into your app.
+Learn more about about the provided samples, documentation, integrating the SDK into your app, and more at [deck slide](https://drive.google.com/file/d/1wjHUySvL6YMUFf3HkHrWVASJEipdooOo/view?usp=sharing)
 
-## Example
+FEATURE
+--------
+* [login](https://documenter.getpostman.com/view/4856913/RztrHRU9#3563f4ea-88bc-403d-8071-d3d3767bd01d)
+* [mining](https://documenter.getpostman.com/view/4856913/RztrHRU9#0cbb0a41-2cfc-4d3a-b541-4cfbbf807843)
+* [donate](https://documenter.getpostman.com/view/4856913/RztrHRU9#608ccdd4-6a95-41f0-b247-ffae9a976feb)
 
-To run the example project, clone the repo, and run `pod install` from the Example directory first.
+INSTALLATION
+------------
+### CocoaPods
 
-## Requirements
+[CocoaPods](http://cocoapods.org) is a dependency manager for Cocoa projects. You can install it with the following command:
 
-## Installation
+```bash
+$ gem install cocoapods
+```
 
-VaultSDK is available through [CocoaPods](https://cocoapods.org). To install
-it, simply add the following line to your Podfile:
+To integrate VaultSDK into your Xcode project using CocoaPods, specify it in your `Podfile`:
 
 ```ruby
 pod 'VaultSDK'
 ```
 
-## Author
+Then, run the following command:
 
-alexhuangtung, alexhuangtung@gmail.com
+```bash
+$ pod install
+```
 
-## License
+USAGE
+------------
 
-VaultSDK is available under the MIT license. See the LICENSE file for more info.
+
+GIVE FEEDBACK
+-------------
+Please report bugs or issues to [hackathon@mith.io](hackathon@mith.io)
