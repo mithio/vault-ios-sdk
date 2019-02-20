@@ -34,7 +34,45 @@ $ pod install
 
 USAGE
 ------------
+Configure the Info.plist file with an XML snippet that contains client ID, client secret, and minging key of your team.
+```XML
+<key>ClientId</key>
+<string>[client ID]</string>
+<key>ClientSecret</key>
+<string>[client secret]</string>
+<key>MiningKey</key>
+<string>[minging key]</string>
+```
 
+If the deployment target of your app below iOS 11, also add the following to your Info.plist file
+```XML
+<key>CFBundleURLTypes</key>
+<array>
+    <dict>
+        <key>CFBundleTypeRole</key>
+        <string>Editor</string>
+        <key>CFBundleURLSchemes</key>
+        <array>
+            <string>vault-[client ID]</string>
+        </array>
+    </dict>
+</array>
+```
+
+If the deployment target of your app below iOS 11, add the following to your AppDelegate class.
+### Swift
+```swift
+func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+    return VaultSDK.shared.open(url: url)
+}
+```
+
+### Objective-C
+```objc
+- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
+    return [[VaultSDK shared] openWithUrl: url];
+}
+```
 
 GIVE FEEDBACK
 -------------
