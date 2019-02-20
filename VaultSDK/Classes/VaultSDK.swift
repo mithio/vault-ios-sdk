@@ -122,17 +122,23 @@ public class VaultSDK: NSObject {
         URLSession.shared
             .dataTask(with: request, completionHandler: { (data, response, error) in
                 if let error  = error {
-                    callback(false, error)
+                    DispatchQueue.main.async {
+                        callback(false, error)
+                    }
                     return
                 }
                 
                 if let codeWrapper = try? self.decoder.decode(CodeWrapper.self, from: data!) {
-                    callback(false, VaultSDKError.serverErrorCode(codeWrapper.code))
+                    DispatchQueue.main.async {
+                        callback(false, VaultSDKError.serverErrorCode(codeWrapper.code))
+                    }
                     return
                 }
                 
-                UserDefaults.standard.removeObject(forKey: tokenKey)
-                callback(true, nil)
+                DispatchQueue.main.async {
+                    UserDefaults.standard.removeObject(forKey: tokenKey)
+                    callback(true, nil)
+                }
             })
             .resume()
     }
@@ -156,20 +162,28 @@ public class VaultSDK: NSObject {
         URLSession.shared
             .dataTask(with: request, completionHandler: { (data, response, error) in
                 if let error = error {
-                    callback(nil, error)
+                    DispatchQueue.main.async {
+                        callback(nil, error)
+                    }
                     return
                 }
                 
                 if let codeWrapper = try? self.decoder.decode(CodeWrapper.self, from: data!) {
-                    callback(nil, VaultSDKError.serverErrorCode(codeWrapper.code))
+                    DispatchQueue.main.async {
+                        callback(nil, VaultSDKError.serverErrorCode(codeWrapper.code))
+                    }
                     return
                 }
                 
                 do {
                     let userInfo = try self.decoder.decode(UserInfo.self, from: data!)
-                    callback(userInfo, nil)
+                    DispatchQueue.main.async {
+                        callback(userInfo, nil)
+                    }
                 } catch {
-                    callback(nil, VaultSDKError.failedToDecode(type: UserInfo.self, data: data!, error: error))
+                    DispatchQueue.main.async {
+                        callback(nil, VaultSDKError.failedToDecode(type: UserInfo.self, data: data!, error: error))
+                    }
                 }
             })
             .resume()
@@ -194,20 +208,28 @@ public class VaultSDK: NSObject {
         URLSession.shared
             .dataTask(with: request, completionHandler: { (data, response, error) in
                 if let error = error {
-                    callback(nil, error)
+                    DispatchQueue.main.async {
+                        callback(nil, error)
+                    }
                     return
                 }
                 
                 if let codeWrapper = try? self.decoder.decode(CodeWrapper.self, from: data!) {
-                    callback(nil, VaultSDKError.serverErrorCode(codeWrapper.code))
+                    DispatchQueue.main.async {
+                        callback(nil, VaultSDKError.serverErrorCode(codeWrapper.code))
+                    }
                     return
                 }
                 
                 do {
                     let balances = try self.decoder.decode([Balance].self, from: data!)
-                    callback(balances, nil)
+                    DispatchQueue.main.async {
+                        callback(balances, nil)
+                    }
                 } catch {
-                    callback(nil, VaultSDKError.failedToDecode(type: [Balance].self, data: data!, error: error))
+                    DispatchQueue.main.async {
+                        callback(nil, VaultSDKError.failedToDecode(type: [Balance].self, data: data!, error: error))
+                    }
                 }
             })
             .resume()
@@ -233,20 +255,28 @@ public class VaultSDK: NSObject {
         URLSession.shared
             .dataTask(with: request, completionHandler: { (data, response, error) in
                 if let error = error {
-                    callback(nil, error)
+                    DispatchQueue.main.async {
+                        callback(nil, error)
+                    }
                     return
                 }
                 
                 if let codeWrapper = try? self.decoder.decode(CodeWrapper.self, from: data!) {
-                    callback(nil, VaultSDKError.serverErrorCode(codeWrapper.code))
+                    DispatchQueue.main.async {
+                        callback(nil, VaultSDKError.serverErrorCode(codeWrapper.code))
+                    }
                     return
                 }
                 
                 do {
                     let miningActivities = try self.decoder.decode([MiningActivity].self, from: data!)
-                    callback(miningActivities, nil)
+                    DispatchQueue.main.async {
+                        callback(miningActivities, nil)
+                    }
                 } catch {
-                    callback(nil, VaultSDKError.failedToDecode(type: [MiningActivity].self, data: data!, error: error))
+                    DispatchQueue.main.async {
+                        callback(nil, VaultSDKError.failedToDecode(type: [MiningActivity].self, data: data!, error: error))
+                    }
                 }
             })
             .resume()
@@ -277,16 +307,22 @@ public class VaultSDK: NSObject {
         URLSession.shared
             .dataTask(with: request, completionHandler: { (data, response, error) in
                 if let error = error {
-                    callback(false ,error)
+                    DispatchQueue.main.async {
+                        callback(false ,error)
+                    }
                     return
                 }
                 
                 if let codeWrapper = try? self.decoder.decode(CodeWrapper.self, from: data!) {
-                    callback(false, VaultSDKError.serverErrorCode(codeWrapper.code))
+                    DispatchQueue.main.async {
+                        callback(false, VaultSDKError.serverErrorCode(codeWrapper.code))
+                    }
                     return
                 }
                 
-                callback(true, nil)
+                DispatchQueue.main.async {
+                    callback(true, nil)
+                }
             })
             .resume()
     }
@@ -320,7 +356,9 @@ public class VaultSDK: NSObject {
         )
         session = OIDAuthState.authState(byPresenting: request, presenting: viewController) { (state, error) in
             guard let state = state else {
-                callback(.error(error))
+                DispatchQueue.main.async {
+                    callback(.error(error))
+                }
                 return
             }
             
@@ -332,17 +370,23 @@ public class VaultSDK: NSObject {
                         responseState: state.lastAuthorizationResponse.state,
                         response: state.lastAuthorizationResponse
                     )
-                    callback(.error(error))
+                    DispatchQueue.main.async {
+                        callback(.error(error))
+                    }
                     return
             }
             
             guard let grantCode = state.lastAuthorizationResponse.additionalParameters?["grant_code"] as? String else {
                 let error = VaultSDKError.noGrantCode(response: state.lastAuthorizationResponse)
-                callback(.error(error))
+                DispatchQueue.main.async {
+                    callback(.error(error))
+                }
                 return
             }
             
-            callback(.success(grantCode: grantCode, requestState: requestState))
+            DispatchQueue.main.async {
+                callback(.success(grantCode: grantCode, requestState: requestState))
+            }
         }
     }
     
@@ -360,20 +404,28 @@ public class VaultSDK: NSObject {
         URLSession.shared
             .dataTask(with: request, completionHandler: { (data, response, error) in
                 if let error = error {
-                    callback(.error(error))
+                    DispatchQueue.main.async {
+                        callback(.error(error))
+                    }
                     return
                 }
                 
                 if let codeWrapper = try? self.decoder.decode(CodeWrapper.self, from: data!) {
-                    callback(.error(VaultSDKError.serverErrorCode(codeWrapper.code)))
+                    DispatchQueue.main.async {
+                        callback(.error(VaultSDKError.serverErrorCode(codeWrapper.code)))
+                    }
                     return
                 }
                 
                 do {
                     let tokenWrapper = try self.decoder.decode(TokenWrapper.self, from: data!)
-                    callback(.success(accessToken: tokenWrapper.token))
+                    DispatchQueue.main.async {
+                        callback(.success(accessToken: tokenWrapper.token))
+                    }
                 } catch {
-                    callback(.error(VaultSDKError.failedToDecode(type: TokenWrapper.self, data: data!, error: error)))
+                    DispatchQueue.main.async {
+                        callback(.error(VaultSDKError.failedToDecode(type: TokenWrapper.self, data: data!, error: error)))
+                    }
                 }
             })
             .resume()
