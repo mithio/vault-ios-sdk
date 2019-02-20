@@ -21,5 +21,15 @@ import Foundation
         case updatedAt = "updated_at"
     }
     
+    public override var debugDescription: String {
+        let data = try! JSONEncoder().encode(self)
+        return String(data: data, encoding: .utf8)!
+    }
+    
+    public override var description: String {
+        let data = try! JSONEncoder().encode(self)
+        return String(data: data, encoding: .utf8)!
+    }
+    
 }
 
