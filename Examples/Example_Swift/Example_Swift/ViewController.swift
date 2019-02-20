@@ -2,12 +2,12 @@
 //  ViewController.swift
 //  Example_Swift
 //
-//  Created by Alex Huang on 2019/2/15.
+//  Created by Alex Huang on 2019/2/20.
 //  Copyright © 2019 Mithril Ltd. All rights reserved.
 //
 
 import UIKit
-import VaultSDK
+import MithVaultSDK
 
 class ViewController: UIViewController {
 
@@ -25,8 +25,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var unbindVaultButton: UIButton!
     @IBOutlet weak var consoleTextView: UITextView! {
         didSet {
-            if VaultSDK.shared.isLoggedIn {
-                consoleTextView.text = "User is already logged in with access token, \(VaultSDK.shared.accessToken!).\n\n"
+            if MithVaultSDK.shared.isLoggedIn {
+                consoleTextView.text = "User is already logged in with access token, \(MithVaultSDK.shared.accessToken!).\n\n"
             } else {
                 consoleTextView.text = "Please log in with VAULT.\n\n"
             }
@@ -44,7 +44,7 @@ class ViewController: UIViewController {
     }
     
     private func updateUI() {
-        let isLoggedIn = VaultSDK.shared.isLoggedIn
+        let isLoggedIn = MithVaultSDK.shared.isLoggedIn
         loginWithVaultButton.isEnabled = !isLoggedIn
         getUserInfoButton.isEnabled = isLoggedIn
         getClientInfoButton.isEnabled = isLoggedIn
@@ -55,7 +55,7 @@ class ViewController: UIViewController {
     }
 
     @IBAction func loginWithVault(_ sender: UIButton) {
-        VaultSDK.shared.login(from: self) { (token, error) in
+        MithVaultSDK.shared.login(from: self) { (token, error) in
             guard let token = token else {
                 self.consoleTextView.text += "\(error!.localizedDescription)\n\n"
                 return
@@ -67,7 +67,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func getUserInfo(_ sender: UIButton) {
-        VaultSDK.shared.getUserInformation { (userInfo, error) in
+        MithVaultSDK.shared.getUserInformation { (userInfo, error) in
             guard let userInfo = userInfo else {
                 self.consoleTextView.text += "\(error!.localizedDescription)\n\n"
                 return
@@ -78,7 +78,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func getClinetInfo(_ sender: UIButton) {
-        VaultSDK.shared.getClientInformation { (balances, error) in
+        MithVaultSDK.shared.getClientInformation { (balances, error) in
             guard let balances = balances else {
                 self.consoleTextView.text += "\(error!.localizedDescription)\n\n"
                 return
@@ -89,7 +89,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func getUserMingingAction(_ sender: UIButton) {
-        VaultSDK.shared.getUserMiningAction { (miningActivities, error) in
+        MithVaultSDK.shared.getUserMiningAction { (miningActivities, error) in
             guard let miningActivities = miningActivities else {
                 self.consoleTextView.text += "\(error!.localizedDescription)\n\n"
                 return
@@ -105,7 +105,7 @@ class ViewController: UIViewController {
             return
         }
         
-        VaultSDK.shared.postUserMiningAction(reward: reward, uuid: UUID().uuidString) { (success, error) in
+        MithVaultSDK.shared.postUserMiningAction(reward: reward, uuid: UUID().uuidString) { (success, error) in
             guard success else {
                 self.consoleTextView.text += "\(error!.localizedDescription)\n\n"
                 return
@@ -119,8 +119,8 @@ class ViewController: UIViewController {
     }
     
     @IBAction func unbindVault(_ sender: UIButton) {
-        let accessToken = VaultSDK.shared.accessToken!
-        VaultSDK.shared.unbind { (success, error) in
+        let accessToken = MithVaultSDK.shared.accessToken!
+        MithVaultSDK.shared.unbind { (success, error) in
             guard success else {
                 self.consoleTextView.text += "\(error!.localizedDescription)\n\n"
                 return

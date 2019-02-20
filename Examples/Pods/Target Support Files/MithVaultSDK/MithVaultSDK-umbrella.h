@@ -11,6 +11,6 @@
 #endif
 
 
-FOUNDATION_EXPORT double VaultSDKVersionNumber;
-FOUNDATION_EXPORT const unsigned char VaultSDKVersionString[];
+FOUNDATION_EXPORT double MithVaultSDKVersionNumber;
+FOUNDATION_EXPORT const unsigned char MithVaultSDKVersionString[];
 

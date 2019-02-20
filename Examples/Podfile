@@ -1,12 +1,12 @@
 use_frameworks!
 
-workspace 'VaultSDK'
+workspace 'MithVaultSDK'
 
 target 'Example_Swift' do
   
   project 'Example_Swift/Example_Swift'
 
-  pod 'VaultSDK', :path => '../'
+  pod 'MithVaultSDK', :path => '../'
 
   target 'Example_SwiftTests' do
     inherit! :search_paths  
@@ -18,7 +18,7 @@ target 'Example_ObjC' do
   
   project 'Example_ObjC/Example_ObjC'
 
-  pod 'VaultSDK', :path => '../'
+  pod 'MithVaultSDK', :path => '../'
 
   target 'Example_ObjCTests' do
     inherit! :search_paths

@@ -1,4 +1,4 @@
-VAULT SDK for iOS
+Mith VAULT SDK for iOS
 ========================
 
 This open-source library allows you to integrate VAULT into your app.
@@ -20,10 +20,10 @@ INSTALLATION
 $ gem install cocoapods
 ```
 
-To integrate VaultSDK into your Xcode project using CocoaPods, specify it in your `Podfile`:
+To integrate MithVaultSDK into your Xcode project using CocoaPods, specify it in your `Podfile`:
 
 ```ruby
-pod 'VaultSDK'
+pod 'MithVaultSDK'
 ```
 
 Then, run the following command:
@@ -63,14 +63,14 @@ If the deployment target of your app below iOS 11, add the following to your App
 ### Swift
 ```swift
 func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
-    return VaultSDK.shared.open(url: url)
+    return MithVaultSDK.shared.open(url: url)
 }
 ```
 
 ### Objective-C
 ```objc
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
-    return [[VaultSDK shared] openWithUrl: url];
+    return [[MithVaultSDK shared] openWithUrl: url];
 }
 ```
 

@@ -1,0 +1,6 @@
+framework module MithVaultSDK {
+  umbrella header "MithVaultSDK-umbrella.h"
+
+  export *
+  module * { export * }
+}

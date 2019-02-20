@@ -5,7 +5,7 @@
       location = "group:"
       name = "Podspec Metadata">
       <FileRef
-         location = "group:../VaultSDK.podspec">
+         location = "group:../MithVaultSDK.podspec">
       </FileRef>
       <FileRef
          location = "group:../README.md">

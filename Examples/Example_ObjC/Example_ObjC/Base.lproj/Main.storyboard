@@ -18,48 +18,48 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qo1-Nm-jms">
-                                <rect key="frame" x="125.5" y="28" width="124" height="30"/>
-                                <state key="normal" title="Log in with VAULT"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NEa-Hu-qFt">
+                                <rect key="frame" x="138" y="218" width="99" height="30"/>
+                                <state key="normal" title="Unbind VAULT"/>
                                 <connections>
-                                    <action selector="loginWithVault:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Pf5-4g-Vhf"/>
+                                    <action selector="unbindVault:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Z6s-FF-kLm"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PeE-Gk-yCr">
-                                <rect key="frame" x="117" y="66" width="141" height="30"/>
-                                <state key="normal" title="Get user information"/>
-                                <connections>
-                                    <action selector="getUserInformation:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ia5-Gq-LAV"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QXq-vM-fk7">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Vte-5U-AmT">
+                                <rect key="frame" x="8" y="294" width="359" height="365"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7JA-Qq-5WN">
                                 <rect key="frame" x="113.5" y="104" width="148" height="30"/>
                                 <state key="normal" title="Get client information"/>
                                 <connections>
-                                    <action selector="getClinetInformation:" destination="BYZ-38-t0r" eventType="touchUpInside" id="JhN-gB-JQ6"/>
+                                    <action selector="getClinetInformation:" destination="BYZ-38-t0r" eventType="touchUpInside" id="cLw-2y-dI3"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ceW-T1-iEg">
-                                <rect key="frame" x="110" y="142" width="155" height="30"/>
-                                <state key="normal" title="Get user mining action"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Poa-kf-lEb">
+                                <rect key="frame" x="145" y="256" width="85" height="30"/>
+                                <state key="normal" title="Clear consle"/>
                                 <connections>
-                                    <action selector="getUserMiningAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="apw-Pb-eOg"/>
+                                    <action selector="clearConsle:" destination="BYZ-38-t0r" eventType="touchUpInside" id="dan-Eb-xxf"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="u2E-GE-VFA">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TMV-S3-K5s">
                                 <rect key="frame" x="53" y="180" width="269" height="30"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0J0-dY-LKf">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dRB-lr-Nqu">
                                         <rect key="frame" x="0.0" y="0.0" width="161" height="30"/>
                                         <state key="normal" title="Post user mining action"/>
                                         <connections>
-                                            <action selector="postUserMingingAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="JVe-qu-g0f"/>
+                                            <action selector="postUserMingingAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="POT-pc-Njb"/>
                                         </connections>
                                     </button>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hf7-dB-hA8">
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Vkn-Nd-sda">
                                         <rect key="frame" x="169" y="0.0" width="100" height="30"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="100" id="JVf-DZ-fdc"/>
+                                            <constraint firstAttribute="width" constant="100" id="PaA-fk-med"/>
                                         </constraints>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -68,75 +68,75 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="hf7-dB-hA8" firstAttribute="leading" secondItem="0J0-dY-LKf" secondAttribute="trailing" constant="8" id="5JF-ND-eej"/>
-                                    <constraint firstAttribute="trailing" secondItem="hf7-dB-hA8" secondAttribute="trailing" id="8B7-BX-7lW"/>
-                                    <constraint firstItem="0J0-dY-LKf" firstAttribute="top" secondItem="u2E-GE-VFA" secondAttribute="top" id="V8R-Al-D1n"/>
-                                    <constraint firstAttribute="bottom" secondItem="hf7-dB-hA8" secondAttribute="bottom" id="ctP-Or-TOG"/>
-                                    <constraint firstItem="0J0-dY-LKf" firstAttribute="leading" secondItem="u2E-GE-VFA" secondAttribute="leading" id="lXe-6h-Ppa"/>
-                                    <constraint firstItem="hf7-dB-hA8" firstAttribute="top" secondItem="u2E-GE-VFA" secondAttribute="top" id="pBe-vT-eeJ"/>
-                                    <constraint firstAttribute="bottom" secondItem="0J0-dY-LKf" secondAttribute="bottom" id="y5L-0N-fgi"/>
+                                    <constraint firstItem="dRB-lr-Nqu" firstAttribute="top" secondItem="TMV-S3-K5s" secondAttribute="top" id="0TS-mN-qvM"/>
+                                    <constraint firstAttribute="bottom" secondItem="Vkn-Nd-sda" secondAttribute="bottom" id="74O-Jq-pdj"/>
+                                    <constraint firstItem="dRB-lr-Nqu" firstAttribute="leading" secondItem="TMV-S3-K5s" secondAttribute="leading" id="7wN-Gx-Rv2"/>
+                                    <constraint firstAttribute="bottom" secondItem="dRB-lr-Nqu" secondAttribute="bottom" id="Ieg-wS-y2M"/>
+                                    <constraint firstItem="Vkn-Nd-sda" firstAttribute="top" secondItem="TMV-S3-K5s" secondAttribute="top" id="cOQ-1N-X3T"/>
+                                    <constraint firstItem="Vkn-Nd-sda" firstAttribute="leading" secondItem="dRB-lr-Nqu" secondAttribute="trailing" constant="8" id="oca-5H-pMx"/>
+                                    <constraint firstAttribute="trailing" secondItem="Vkn-Nd-sda" secondAttribute="trailing" id="q3A-Ia-Fis"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jLM-Fp-5VP">
-                                <rect key="frame" x="138" y="218" width="99" height="30"/>
-                                <state key="normal" title="Unbind VAULT"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zCt-v0-zWZ">
+                                <rect key="frame" x="110" y="142" width="155" height="30"/>
+                                <state key="normal" title="Get user mining action"/>
                                 <connections>
-                                    <action selector="unbindVault:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Bos-aB-98u"/>
+                                    <action selector="getUserMiningAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="npI-rr-0op"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TZ0-DL-0TT">
-                                <rect key="frame" x="145" y="256" width="85" height="30"/>
-                                <state key="normal" title="Clear consle"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZQY-6y-Phk">
+                                <rect key="frame" x="125.5" y="28" width="124" height="30"/>
+                                <state key="normal" title="Log in with VAULT"/>
                                 <connections>
-                                    <action selector="clearConsle:" destination="BYZ-38-t0r" eventType="touchUpInside" id="cpo-ym-bla"/>
+                                    <action selector="loginWithVault:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ubh-QG-ok0"/>
                                 </connections>
                             </button>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="34s-Ee-blM">
-                                <rect key="frame" x="8" y="294" width="359" height="365"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dNc-Ts-c0d">
+                                <rect key="frame" x="117" y="66" width="141" height="30"/>
+                                <state key="normal" title="Get user information"/>
+                                <connections>
+                                    <action selector="getUserInformation:" destination="BYZ-38-t0r" eventType="touchUpInside" id="GHT-RE-v5L"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="QXq-vM-fk7" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="6B3-qe-Vbi"/>
-                            <constraint firstItem="u2E-GE-VFA" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="FTm-Fm-XH0"/>
-                            <constraint firstItem="u2E-GE-VFA" firstAttribute="top" secondItem="ceW-T1-iEg" secondAttribute="bottom" constant="8" id="Ipl-TK-mTu"/>
-                            <constraint firstItem="34s-Ee-blM" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="8" id="N0e-Bg-rzi"/>
-                            <constraint firstItem="ceW-T1-iEg" firstAttribute="top" secondItem="QXq-vM-fk7" secondAttribute="bottom" constant="8" id="P2F-f3-ek0"/>
-                            <constraint firstItem="jLM-Fp-5VP" firstAttribute="top" secondItem="u2E-GE-VFA" secondAttribute="bottom" constant="8" id="S69-6x-i7c"/>
-                            <constraint firstItem="qo1-Nm-jms" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="8" id="SLt-2Q-RV4"/>
-                            <constraint firstItem="34s-Ee-blM" firstAttribute="top" secondItem="TZ0-DL-0TT" secondAttribute="bottom" constant="8" id="WQK-Iw-Rvu"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="34s-Ee-blM" secondAttribute="trailing" constant="8" id="ZOz-MC-0KO"/>
-                            <constraint firstItem="TZ0-DL-0TT" firstAttribute="top" secondItem="jLM-Fp-5VP" secondAttribute="bottom" constant="8" id="ZQb-wx-OnK"/>
-                            <constraint firstItem="PeE-Gk-yCr" firstAttribute="top" secondItem="qo1-Nm-jms" secondAttribute="bottom" constant="8" id="hoz-eO-izI"/>
-                            <constraint firstItem="PeE-Gk-yCr" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="k2s-jR-w6Q"/>
-                            <constraint firstItem="qo1-Nm-jms" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="lRK-gV-hUG"/>
-                            <constraint firstItem="jLM-Fp-5VP" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="ojW-I9-H3e"/>
-                            <constraint firstItem="TZ0-DL-0TT" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="sbW-HA-KrA"/>
-                            <constraint firstItem="ceW-T1-iEg" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="u5x-yV-PmB"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="34s-Ee-blM" secondAttribute="bottom" constant="8" id="v3B-cY-EUe"/>
-                            <constraint firstItem="QXq-vM-fk7" firstAttribute="top" secondItem="PeE-Gk-yCr" secondAttribute="bottom" constant="8" id="zLw-Pb-5iy"/>
+                            <constraint firstItem="7JA-Qq-5WN" firstAttribute="top" secondItem="dNc-Ts-c0d" secondAttribute="bottom" constant="8" id="2oI-4O-luS"/>
+                            <constraint firstItem="dNc-Ts-c0d" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="6TI-mb-wZp"/>
+                            <constraint firstItem="Vte-5U-AmT" firstAttribute="top" secondItem="Poa-kf-lEb" secondAttribute="bottom" constant="8" id="7HJ-gO-YXA"/>
+                            <constraint firstItem="Poa-kf-lEb" firstAttribute="top" secondItem="NEa-Hu-qFt" secondAttribute="bottom" constant="8" id="BSx-us-6ko"/>
+                            <constraint firstItem="Vte-5U-AmT" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="8" id="CEG-at-KN5"/>
+                            <constraint firstItem="NEa-Hu-qFt" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Fv7-PC-lu5"/>
+                            <constraint firstItem="TMV-S3-K5s" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="L13-4O-NLv"/>
+                            <constraint firstItem="zCt-v0-zWZ" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="PCL-hu-STe"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Vte-5U-AmT" secondAttribute="bottom" constant="8" id="Rdi-3I-EnX"/>
+                            <constraint firstItem="zCt-v0-zWZ" firstAttribute="top" secondItem="7JA-Qq-5WN" secondAttribute="bottom" constant="8" id="Tja-iL-b9M"/>
+                            <constraint firstItem="NEa-Hu-qFt" firstAttribute="top" secondItem="TMV-S3-K5s" secondAttribute="bottom" constant="8" id="XJj-cW-xcV"/>
+                            <constraint firstItem="7JA-Qq-5WN" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="fpo-TX-gTF"/>
+                            <constraint firstItem="ZQY-6y-Phk" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="kyG-IM-1MY"/>
+                            <constraint firstItem="Poa-kf-lEb" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="oRV-XY-xDQ"/>
+                            <constraint firstItem="TMV-S3-K5s" firstAttribute="top" secondItem="zCt-v0-zWZ" secondAttribute="bottom" constant="8" id="q9D-ih-79h"/>
+                            <constraint firstItem="dNc-Ts-c0d" firstAttribute="top" secondItem="ZQY-6y-Phk" secondAttribute="bottom" constant="8" id="qvA-yb-c1i"/>
+                            <constraint firstItem="ZQY-6y-Phk" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="8" id="xZa-NO-ocm"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Vte-5U-AmT" secondAttribute="trailing" constant="8" id="zSM-er-KJu"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
-                        <outlet property="clearConsoleButton" destination="TZ0-DL-0TT" id="iGy-HX-Epy"/>
-                        <outlet property="consoleTextView" destination="34s-Ee-blM" id="ggD-2i-2TO"/>
-                        <outlet property="getClientInfoButton" destination="QXq-vM-fk7" id="hlr-kC-bLj"/>
-                        <outlet property="getUserInfoButton" destination="PeE-Gk-yCr" id="PCR-hq-G2G"/>
-                        <outlet property="getUserMiningActionButton" destination="ceW-T1-iEg" id="Llv-fc-gro"/>
-                        <outlet property="loginWithVaultButton" destination="qo1-Nm-jms" id="hfg-Kl-941"/>
-                        <outlet property="postUserMiningActionButton" destination="0J0-dY-LKf" id="9fe-l4-VE8"/>
-                        <outlet property="rewardTextField" destination="hf7-dB-hA8" id="McC-tH-ZiC"/>
-                        <outlet property="unbindVaultButton" destination="jLM-Fp-5VP" id="IKB-lN-kFc"/>
+                        <outlet property="clearConsoleButton" destination="Poa-kf-lEb" id="jiy-Mh-mQT"/>
+                        <outlet property="consoleTextView" destination="Vte-5U-AmT" id="YEl-pd-Wqr"/>
+                        <outlet property="getClientInfoButton" destination="7JA-Qq-5WN" id="Hqh-if-Afu"/>
+                        <outlet property="getUserInfoButton" destination="dNc-Ts-c0d" id="Omi-Gf-1Mx"/>
+                        <outlet property="getUserMiningActionButton" destination="zCt-v0-zWZ" id="fcn-3S-uhi"/>
+                        <outlet property="loginWithVaultButton" destination="ZQY-6y-Phk" id="Lfx-Bx-UAB"/>
+                        <outlet property="postUserMiningActionButton" destination="dRB-lr-Nqu" id="nGI-fG-2eT"/>
+                        <outlet property="rewardTextField" destination="Vkn-Nd-sda" id="GnM-uT-n6A"/>
+                        <outlet property="unbindVaultButton" destination="NEa-Hu-qFt" id="sla-EZ-HKC"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="40.799999999999997" y="25.637181409295355"/>
+            <point key="canvasLocation" x="184.80000000000001" y="-70.614692653673174"/>
         </scene>
     </scenes>
 </document>

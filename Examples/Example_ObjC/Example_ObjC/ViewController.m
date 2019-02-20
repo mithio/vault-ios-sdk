@@ -2,12 +2,12 @@
 //  ViewController.m
 //  Example_ObjC
 //
-//  Created by Alex Huang on 2019/2/15.
+//  Created by Alex Huang on 2019/2/20.
 //  Copyright © 2019 Mithril Ltd. All rights reserved.
 //
 
 #import "ViewController.h"
-@import VaultSDK;
+@import MithVaultSDK;
 
 @interface ViewController ()
 @property (weak, nonatomic) IBOutlet UIButton *loginWithVaultButton;
@@ -27,8 +27,8 @@
     [super viewDidLoad];
     self.rewardTextField.placeholder = @"0.12345678";
     self.rewardTextField.keyboardType = UIKeyboardTypeDecimalPad;
-    if ([[VaultSDK shared] isLoggedIn]) {
-        self.consoleTextView.text = [NSString stringWithFormat:@"User is already logged in with access token, %@\n\n", [[VaultSDK shared] accessToken]];
+    if ([[MithVaultSDK shared] isLoggedIn]) {
+        self.consoleTextView.text = [NSString stringWithFormat:@"User is already logged in with access token, %@\n\n", [[MithVaultSDK shared] accessToken]];
     } else {
         self.consoleTextView.text = @"Please log in with VAULT.\n\n";
     }
@@ -41,7 +41,7 @@
 }
 
 - (void) updateUI {
-    BOOL isLoggedIn = [[VaultSDK shared] isLoggedIn];
+    BOOL isLoggedIn = [[MithVaultSDK shared] isLoggedIn];
     self.loginWithVaultButton.enabled = !isLoggedIn;
     self.getUserInfoButton.enabled = isLoggedIn;
     self.getClientInfoButton.enabled = isLoggedIn;
@@ -52,7 +52,7 @@
 }
 
 - (IBAction)loginWithVault:(UIButton *)sender {
-    [[VaultSDK shared] loginFrom:self callback:^(NSString *accessToken, NSError * error) {
+    [[MithVaultSDK shared] loginFrom:self callback:^(NSString *accessToken, NSError * error) {
         if (error != nil) {
             NSLog(@"%@", [error localizedDescription]);
             return;
@@ -64,7 +64,7 @@
 }
 
 - (IBAction)getUserInformation:(UIButton *)sender {
-    [[VaultSDK shared] getUserInformationWithCallback:^(UserInfo *userInfo, NSError *error) {
+    [[MithVaultSDK shared] getUserInformationWithCallback:^(UserInfo *userInfo, NSError *error) {
         if (error != nil) {
             NSLog(@"%@", [error localizedDescription]);
             return;
@@ -75,7 +75,7 @@
 }
 
 - (IBAction)getClinetInformation:(UIButton *)sender {
-    [[VaultSDK shared] getClientInformationWithCallback:^(NSArray<Balance *> *balances, NSError *error) {
+    [[MithVaultSDK shared] getClientInformationWithCallback:^(NSArray<Balance *> *balances, NSError *error) {
         if (error != nil) {
             NSLog(@"%@", [error localizedDescription]);
             return;
@@ -86,7 +86,7 @@
 }
 
 - (IBAction)getUserMiningAction:(UIButton *)sender {
-    [[VaultSDK shared] getUserMiningActionWithCallback:^(NSArray<MiningActivity *> *miningActivities, NSError *error) {
+    [[MithVaultSDK shared] getUserMiningActionWithCallback:^(NSArray<MiningActivity *> *miningActivities, NSError *error) {
         if (error != nil) {
             NSLog(@"%@", [error localizedDescription]);
             return;
@@ -98,7 +98,7 @@
 
 - (IBAction)postUserMingingAction:(UIButton *)sender {
     double reward = [[self.rewardTextField text] doubleValue];
-    [[VaultSDK shared] postUserMiningActionWithReward:reward uuid:[NSUUID UUID].UUIDString callback:^(BOOL success, NSError *error) {
+    [[MithVaultSDK shared] postUserMiningActionWithReward:reward uuid:[NSUUID UUID].UUIDString callback:^(BOOL success, NSError *error) {
         if (error != nil) {
             NSLog(@"%@", [error localizedDescription]);
             return;
@@ -110,8 +110,8 @@
     }];
 }
 - (IBAction)unbindVault:(UIButton *)sender {
-    NSString *accessToken = [[VaultSDK shared] accessToken];
-    [[VaultSDK shared] unbindWithCallback:^(BOOL success, NSError *error) {
+    NSString *accessToken = [[MithVaultSDK shared] accessToken];
+    [[MithVaultSDK shared] unbindWithCallback:^(BOOL success, NSError *error) {
         if (error != nil) {
             NSLog(@"%@", [error localizedDescription]);
             return;

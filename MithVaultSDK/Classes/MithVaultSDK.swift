@@ -1,5 +1,5 @@
 //
-//  VaultSDK.swift
+//  MithVaultSDK.swift
 //  AppAuth
 //
 //  Created by Alex Huang on 2019/2/15.
@@ -39,9 +39,9 @@ private let clientInformationEndpoint = baseURL.appendingPathComponent("oauth/ba
 
 private let miningEndpoint = baseURL.appendingPathComponent("mining")
 
-public class VaultSDK: NSObject {
+public class MithVaultSDK: NSObject {
     
-    @objc public static let shared = VaultSDK()
+    @objc public static let shared = MithVaultSDK()
     
     private let clientId: String
     

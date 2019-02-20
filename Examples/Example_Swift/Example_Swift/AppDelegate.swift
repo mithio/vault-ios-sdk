@@ -2,12 +2,12 @@
 //  AppDelegate.swift
 //  Example_Swift
 //
-//  Created by Alex Huang on 2019/2/15.
+//  Created by Alex Huang on 2019/2/20.
 //  Copyright © 2019 Mithril Ltd. All rights reserved.
 //
 
 import UIKit
-import VaultSDK
+import MithVaultSDK
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -43,7 +43,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
-        return VaultSDK.shared.open(url: url)
+        return MithVaultSDK.shared.open(url: url)
     }
 
 
