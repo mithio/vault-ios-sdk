@@ -54,7 +54,7 @@
 - (IBAction)loginWithVault:(UIButton *)sender {
     [[MithVaultSDK shared] loginFrom:self callback:^(NSString *accessToken, NSError * error) {
         if (error != nil) {
-            NSLog(@"%@", [error localizedDescription]);
+            self.consoleTextView.text = [self.consoleTextView.text stringByAppendingString: [NSString stringWithFormat: @"%@\n\n", [error localizedDescription]]];
             return;
         }
         
@@ -66,7 +66,7 @@
 - (IBAction)getUserInformation:(UIButton *)sender {
     [[MithVaultSDK shared] getUserInformationWithCallback:^(UserInfo *userInfo, NSError *error) {
         if (error != nil) {
-            NSLog(@"%@", [error localizedDescription]);
+            self.consoleTextView.text = [self.consoleTextView.text stringByAppendingString: [NSString stringWithFormat: @"%@\n\n", [error localizedDescription]]];
             return;
         }
         
@@ -77,7 +77,7 @@
 - (IBAction)getClinetInformation:(UIButton *)sender {
     [[MithVaultSDK shared] getClientInformationWithCallback:^(NSArray<Balance *> *balances, NSError *error) {
         if (error != nil) {
-            NSLog(@"%@", [error localizedDescription]);
+            self.consoleTextView.text = [self.consoleTextView.text stringByAppendingString: [NSString stringWithFormat: @"%@\n\n", [error localizedDescription]]];
             return;
         }
         
@@ -88,7 +88,7 @@
 - (IBAction)getUserMiningAction:(UIButton *)sender {
     [[MithVaultSDK shared] getUserMiningActionWithCallback:^(NSArray<MiningActivity *> *miningActivities, NSError *error) {
         if (error != nil) {
-            NSLog(@"%@", [error localizedDescription]);
+            self.consoleTextView.text = [self.consoleTextView.text stringByAppendingString: [NSString stringWithFormat: @"%@\n\n", [error localizedDescription]]];
             return;
         }
         
@@ -100,7 +100,7 @@
     double reward = [[self.rewardTextField text] doubleValue];
     [[MithVaultSDK shared] postUserMiningActionWithReward:reward uuid:[NSUUID UUID].UUIDString callback:^(BOOL success, NSError *error) {
         if (error != nil) {
-            NSLog(@"%@", [error localizedDescription]);
+            self.consoleTextView.text = [self.consoleTextView.text stringByAppendingString: [NSString stringWithFormat: @"%@\n\n", [error localizedDescription]]];
             return;
         }
         
@@ -113,7 +113,7 @@
     NSString *accessToken = [[MithVaultSDK shared] accessToken];
     [[MithVaultSDK shared] unbindWithCallback:^(BOOL success, NSError *error) {
         if (error != nil) {
-            NSLog(@"%@", [error localizedDescription]);
+            self.consoleTextView.text = [self.consoleTextView.text stringByAppendingString: [NSString stringWithFormat: @"%@\n\n", [error localizedDescription]]];
             return;
         }
         
