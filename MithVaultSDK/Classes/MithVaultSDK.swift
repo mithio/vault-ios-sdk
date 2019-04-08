@@ -54,6 +54,7 @@ public class MithVaultSDK: NSObject {
     private let dateFormatter: DateFormatter = {
         let df = DateFormatter()
         df.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+        df.timeZone = TimeZone(secondsFromGMT: 0)
         return df
     }()
     
