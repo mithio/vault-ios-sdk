@@ -22,9 +22,9 @@ import Foundation
     enum CodingKeys: String, CodingKey {
         case amount
         case balance
-        case kycLevel = "kyc_level"
-        case stakeLevel = "stake_level"
-        case stakedAmount = "staked_amount"
+        case kycLevel
+        case stakeLevel
+        case stakedAmount
     }
     
     public override var debugDescription: String {

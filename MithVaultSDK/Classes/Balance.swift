@@ -18,7 +18,7 @@ import Foundation
     enum CodingKeys: String, CodingKey {
         case currency
         case balance
-        case updatedAt = "updated_at"
+        case updatedAt
     }
     
     public override var debugDescription: String {

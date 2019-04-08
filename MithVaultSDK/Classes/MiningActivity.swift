@@ -24,8 +24,8 @@ import Foundation
     enum CodingKeys: String, CodingKey {
         case amount
         case reward
-        case happendAt = "happened_at"
-        case updatedAt = "updated_at"
+        case happendAt
+        case updatedAt
         case status
         case uuid
     }
