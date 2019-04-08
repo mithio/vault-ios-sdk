@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'MithVaultSDK'
-  s.version          = '0.1.0'
+  s.version          = '1.0.0'
   s.summary          = 'The SDK for 2019 Mithril Hackathon'
   s.homepage         = 'https://github.com/mithio/vault-oauth-ios'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
